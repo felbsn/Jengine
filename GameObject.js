@@ -85,7 +85,7 @@ class GameObject
      * @returns
      * @memberof GameObject
      */
-    addBoxBody(  xs , ys , zs , mass)
+    addBoxBody(  xs , ys , zs , mass = 0)
     {
         var shape = new CANNON.Box(new CANNON.Vec3(  xs , zs ,ys   ));
 
@@ -93,7 +93,8 @@ class GameObject
             mass: mass, 
             position: new CANNON.Vec3(this.position[0], this.position[2], this.position[1]), 
 
-            quaternion: new CANNON.Quaternion(this.rotation[1], this.rotation[3], this.rotation[2] ,this.rotation[0]),
+            // some floating point error occur on some rotations still not fixed ...
+           // quaternion: new CANNON.Quaternion(this.rotation[1], this.rotation[3], this.rotation[2] ,this.rotation[0]),
             shape: shape
          });
          this.body = new Body( this ,physicBody )

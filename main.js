@@ -64,9 +64,9 @@ function main()
   
 
         let planeObj = new GameObject("Plane" ,null, "Plane").setScale(40 , 40 , 40).translate(0 , -2 , 0);
-        planeObj.rotate( 0 , 0 , 1, 180)
-
-        planeObj.addBoxBody(40 , 0.1  ,40);
+      //  planeObj.rotate( 0 , 0 , 1, 0)
+        planeObj.material = Material.Dark()
+        planeObj.addBoxBody(40 , 0.01  ,40);
         
 
        let objx = new GameObject("cameraHolder");
@@ -212,7 +212,7 @@ function main()
                 console.log("Destroying objecr " , this.name)
             }
 
-            obj.material = Material.Dark();
+            //obj.material = Material.Dark();
             obj.material.diffuse[0] =  Math.random(); 
             obj.material.diffuse[1] =  Math.random(); 
             obj.material.diffuse[2] =  Math.random(); 
@@ -255,12 +255,13 @@ function main()
 
             let size = 0.4
             obj.setScale(size , size , size)
-            obj.addSphereBody(size-0.01, 3 )
-            obj.body.applyForce(-camDir[0] ,-camDir[1], -camDir[2] ,60);
+            obj.addSphereBody(size, 2 )
+            obj.body.applyForce(-camDir[0] ,-camDir[1], -camDir[2] ,40);
 
             
 
             obj.addLightRGB(Math.random() , Math.random() ,Math.random())
+            obj.lights[0].setIntensity(0.7)
            
         }
 

@@ -22,7 +22,7 @@ class Material
         this.ambient = vec3.fromValues(0.0,0.0,0.0);
         this.specular =vec3.fromValues(1,1,1);
 
-        this.shininess = 4;
+        this.shininess = 14;
         this.useTexture = false;
         this.useSpecularMap = false;
     }
@@ -168,8 +168,8 @@ Material.Dark = function()
 
     mat.emissive = vec3.fromValues(0 ,0 ,0);
     mat.diffuse = vec3.fromValues( 0.2,0.2,0.2);
-    mat.ambient = vec3.fromValues(0.1,0.1,0.1);
-    mat.specular =vec3.fromValues(0.2,0.2,0.2);
+  //  mat.ambient = vec3.fromValues(0.1,0.1,0.1);
+    mat.specular =vec3.fromValues(0.1,0.1,0.1);
 
     return mat;
 }

@@ -255,9 +255,9 @@ class Light {
         let rval = 1.001 - Math.min(1 ,Math.max(val, 0) ) 
 
         console.log("rval" , rval)
-        this.constantAttenuation = rval 
-        this.linearAttenuation = rval*0.3
-        this.quadraticAttenuation = rval*0.01
+        this.constantAttenuation = rval *0.4
+        this.linearAttenuation = rval*rval*0.1
+        this.quadraticAttenuation = rval*0.001
        
 
     }
