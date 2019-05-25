@@ -33,7 +33,7 @@ class Time
     {
         time *= 0.001;
 
-         this.deltaTime = Math.min(time - this.time  , 0.30);
+         this.deltaTime = Math.min(time - this.time  , 0.20);
 
          this.time = time
 

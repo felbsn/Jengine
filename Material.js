@@ -17,14 +17,20 @@ class Material
      */
     constructor()
     {
-        this.emissive = vec3.fromValues(0.1,0.1,0.1);
-        this.diffuse = vec3.fromValues(0.5,0.5,0.5);
+        this.emissive = vec3.fromValues(0.05,0.05,0.05);
+        this.diffuse = vec3.fromValues(0.7,0.7,0.7);
         this.ambient = vec3.fromValues(0.0,0.0,0.0);
         this.specular =vec3.fromValues(1,1,1);
 
-        this.shininess = 14;
+        this.shininess = 27;
         this.useTexture = false;
         this.useSpecularMap = false;
+
+
+        this.texture = null;
+        this.specularMap = null;
+        this.normalMap = null;
+        this.emissiveMap = null;
     }
 
 
@@ -61,8 +67,12 @@ class Material
         gfx.setVec3f(matLoc.ambient ,this.ambient )
         gfx.setVec3f(matLoc.specular ,this.specular )
         gfx.setFloat(matLoc.shininess ,this.shininess )
-        gfx.setInt(matLoc.useTexture , this.useTexture  ); 
-        gfx.setInt(matLoc.useSpecularMap , this.useSpecularMap);
+        gfx.setInt(matLoc.useTexture ,this.texture ? 1 :0   ); 
+        gfx.setInt(matLoc.useSpecularMap , this.specularMap ? 1 :0 );
+        gfx.setInt(matLoc.useNormalMap , this.normalMap ? 1 :0 );
+        gfx.setInt(matLoc.useEmissiveMap , this.emissiveMap ? 1 :0 );
+        
+
 
     }
 
@@ -106,6 +116,29 @@ Material.Blue = function()
 }
 
 /**
+ * Material.White
+ * 
+ * @returns
+ */
+Material.White = function()
+{
+    let mat = new Material();
+
+
+    mat.shininess = 8;
+
+    mat.emissive = vec3.fromValues(0.1,0.1,0.1);
+    mat.diffuse = vec3.fromValues(0.5,0.5,0.5);
+    mat.ambient = vec3.fromValues(0.0,0.0,0.0);
+    mat.specular =vec3.fromValues(1,1,1);
+
+
+    return mat;
+
+}
+
+
+/**
  * Very Bright material for ligths
  *
  * @param {*} color
@@ -134,7 +167,7 @@ Material.Green = function()
 {
     let mat = new Material();
     mat.diffuse =  vec3.fromValues(0.2, 1 ,0.2);
-    mat.shininess = 1;
+    mat.shininess = 14;
 
     return mat;
 }

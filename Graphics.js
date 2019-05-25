@@ -40,6 +40,8 @@ class Graphics {
 
         this.shaderProgram = null;
         console.log("graphics build " + this.width + "x" + this.height)
+
+        this.shaders = {};
     }
 
 
@@ -190,8 +192,7 @@ class Graphics {
         this.gl.uniform3f(this.shaderProgram.locations.viewPos, pos[0], pos[1], pos[2]);
     }
 
-
-
+    
     
 
 
@@ -242,6 +243,9 @@ class Graphics {
         this.shaderProgram.addExtraLocation(Locations)
 
         this.shaderProgram.initLocations(this.gl);
+
+
+        
 
         return  this.shaderProgram;
     }
@@ -334,8 +338,6 @@ class Graphics {
      */
     drawMesh(mesh , material) {
 
-       
-
         if(material && material.drawMode)
         this.gl.drawElements(material.drawMode, mesh.indexCount, mesh.indexType, 0)
         else
@@ -372,6 +374,26 @@ class Graphics {
     }
 
 
+
+    /**
+     * Access shaders by name
+     *
+     * @param {String} shaderName
+     * @returns
+     * @memberof Graphics
+     */
+    getShader(shaderName)
+    {
+        if(this.shaders[shaderName])
+        {
+            return this.shaders[shaderName];
+
+        }else
+        {
+            throw "Shader not found !" + shaderName;
+            return null;
+        }
+    }
 
 
 
@@ -426,6 +448,8 @@ class Graphics {
         return texture;
     }
 }
+
+
 
 
 

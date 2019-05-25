@@ -54,10 +54,10 @@ class Body
         //console.log("xyz " ,"-> " ,this.physicBody.position.x , this.physicBody.position.z ,this.physicBody.position.y )
 
         this.gameObject.setPosition(this.physicBody.position.x , this.physicBody.position.z , this.physicBody.position.y )
-        this.gameObject.rotation[0] = this.physicBody.quaternion.w;
-        this.gameObject.rotation[1] = this.physicBody.quaternion.x;
-        this.gameObject.rotation[2] = this.physicBody.quaternion.z;
-        this.gameObject.rotation[3] = this.physicBody.quaternion.y;
+        this.gameObject.rotation[3] = -this.physicBody.quaternion.w;
+        this.gameObject.rotation[0] = this.physicBody.quaternion.x;
+        this.gameObject.rotation[2] = this.physicBody.quaternion.y;
+        this.gameObject.rotation[1] = this.physicBody.quaternion.z;
 
 
         //this.gameObject.rotation[1] = this.physicBody.quaternion.x;
@@ -72,12 +72,25 @@ class Body
      * @param {Number} x
      * @param {Number} y
      * @param {Number} z
-     * @param {Number} intencity
+     * @param {Number} intensity
      * @memberof Body
      */
-    applyForce( x, y ,z  , intencity)
+    applyForce( x, y ,z  , intensity)
     {
-        this.physicBody.applyLocalImpulse ( new CANNON.Vec3(  x*intencity ,  z*intencity,y*intencity  ) ,  new CANNON.Vec3(  0 , 0 , 0 ) )
+        this.physicBody.applyLocalImpulse ( new CANNON.Vec3(  x*intensity ,  z*intensity,y*intensity  ) ,  new CANNON.Vec3(  0 , 0 , 0 ) )
+   
+    }
+
+    /**
+     * Apply force to linked physic body 
+     *
+     * @param {vec3} vec
+     * @param {Number} intensity
+     * @memberof Body
+     */
+    applyForceVector( vec , intensity)
+    {
+        this.physicBody.applyLocalImpulse ( new CANNON.Vec3(  vec[0]*intensity ,  vec[2]*intensity,vec[1]*intensity  ) ,  new CANNON.Vec3(  0 , 0 , 0 ) )
    
     }
 
@@ -90,6 +103,8 @@ class Body
     {
 
         Engine.Instance.world.removeBody(this.physicBody)
+
+        Body.list.splice(Body.list.indexOf(this) , 1 )
         
     }
 

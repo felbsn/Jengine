@@ -63,7 +63,12 @@ class Input {
         inputElement.onmousemove = this.mouseEvent
         inputElement.onmousedown = this.mousePress
         document.body.onkeydown = document.body.onkeypress = document.body.onkeyup = this.keyEvent
+        document.body.onkeyup =  this.keyEvent
 
+       /* document.body.onkeyup = function(e)
+        {
+            console.log("key up e " , e);
+        }*/
 
     }
 
@@ -93,7 +98,7 @@ class Input {
      * @memberof Input
      */
     isKeyPressed(keyCode) {
-        return this.keys[keyCode];
+        return !this.keys[keyCode];
     }
 
     /**
@@ -104,6 +109,11 @@ class Input {
      */
     keyEvent(e) {
 
+        //console.log("key up e " , e  , " code " );
+
+        if (e.type == 'keypress') {
+            _input.keys[e.keyCode] = 0;
+        }else
         if (e.type == 'keydown') {
             _input.keys[e.keyCode] = 0;
         } else {
@@ -112,7 +122,7 @@ class Input {
     }
 
     /**
-     *Mouse listener
+     *Mouse listenerd a
      *
      * @param {*} event
      * @memberof Input

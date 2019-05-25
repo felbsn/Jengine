@@ -17,44 +17,19 @@ class ShaderProgram
     {
         this.name = programName
         this.locations = {
-
             // vertex shader
             modelMatrix:"uModelMatrix",
             inverseModelMatrix:"uInvModelMatrix",
-            viewProjectionMatrix:"uViewProjMatrix",
-            ID:"uID_Click",
-
-            //fragment shader
-            material:
-            {
-                shininess:"shininess",
-                emissive:"emissive",
-                ambient:"ambient",
-                diffuse:"diffuse",
-                specular:"specular",
-                useTexture:"useTexture",
-                useSpecularMap:"useSpecularMap"  
-            },
-
-            viewPos:"viewPos",
-            globalAmbient:"globalAmbient",
-
-            lights:Array.from({length:30},()=> ({
-                color               :"color",
-                position            :"position",
-                constantAttenuation :"constant",
-                linearAttenuation   :"linear",
-                quadraticAttenuation:"quadratic",
-                cutOff              :"cutOff",
-                outerCutOff         :"outerCutOff",
-                lightType           :"type",
-                direction           : "direction"
-                }))
+            viewProjectionMatrix:"uViewProjMatrix"
         };
- 
+
+
+        this.targets = []
 
         this.program = glProgram;
+        return this;
     }
+
 
 
     /**
@@ -65,7 +40,7 @@ class ShaderProgram
      */
     addExtraLocation( extralocs)
     {
-        for(key in extralocs)
+        for(let key in extralocs)
         {
             this.locations[key] = extralocs[key];
         }
@@ -168,3 +143,48 @@ class ShaderProgram
     }
 
 }
+
+ShaderProgram.DefaultLocations = {
+
+        // vertex shader
+        modelMatrix:"uModelMatrix",
+        inverseModelMatrix:"uInvModelMatrix",
+        viewProjectionMatrix:"uViewProjMatrix",
+        ID:"uID_Click",
+
+
+            textureDiffuse : "textureDiffuse",
+            textureNormal  : "textureNormal",
+            textureEmissive: "textureEmissive",
+            textureSpecular: "textureSpecular",
+  
+        //fragment shader
+        material:
+        {
+            shininess:"shininess",
+            emissive:"emissive",
+            ambient:"ambient",
+            diffuse:"diffuse",
+            specular:"specular",
+            useTexture:"useTexture",
+            useEmissiveMap:"useEmissiveMap",
+            useNormalMap:"useNormalMap",
+            useSpecularMap:"useSpecularMap"
+        },
+
+        viewPos:"viewPos",
+        globalAmbient:"globalAmbient",
+
+        lights:Array.from({length:30},()=> ({
+            color               :"color",
+            position            :"position",
+            constantAttenuation :"constant",
+            linearAttenuation   :"linear",
+            quadraticAttenuation:"quadratic",
+            cutOff              :"cutOff",
+            outerCutOff         :"outerCutOff",
+            lightType           :"type",
+            direction           : "direction"
+            }))
+    };
+

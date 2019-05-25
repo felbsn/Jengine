@@ -65,6 +65,12 @@ class Mesh
         this.indexType = indexType;
         this.rawMesh = modeldata;
 
+
+        this.bbox = modeldata.bbox ? modeldata.bbox: null;
+        this.radius =  modeldata.radius ? modeldata.radius: null;
+
+       
+
         Mesh.dict[this.name] = this;
 
         Mesh._id++;

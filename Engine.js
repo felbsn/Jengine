@@ -48,7 +48,8 @@ class Engine
 
         this.world = new CANNON.World();
         this.world.gravity.set(0, 0, -9.82);  
-
+      //  this.world.broadphase = new CANNON.NaiveBroadphase();
+        this.world.solver.tolerance = 0.001;
 
 
         console.log("Engine constructed")
@@ -108,9 +109,15 @@ class Engine
 
                 if (element.material) {
                     element.material.bind(this.gfx);
+
+                    if(element.material.texture) element.material.texture.bind(0);
+                    if(element.material.normalMap) element.material.normalMap.bind(1);
+                    if(element.material.emissiveMap) element.material.emissiveMap.bind(2);
+                    if(element.material.specularMap) element.material.specularMap.bind(3);
+
                 }
                 if (element.texture) {
-                    element.texture.bind(this.gfx);
+                    element.texture.bind(0);
                 }
 
                 this.gfx.setModelMatrix(element.matrix)
@@ -131,6 +138,26 @@ class Engine
     draw2D()
     {
 
+        const instance = Engine.Instance;
+        const ctx = instance.gfx.ctx2D;
+
+        let w =  instance.gfx.getWidth() , h = instance.gfx.getHeight();
+        ctx.clearRect (0, 0, w, h);
+
+
+        ctx.font = "30px Arial";
+
+        ctx.fillStyle = "white";
+        ctx.fillText("fps:"+ (1.0/Time.deltaTime).toFixed(2), 10, 50);
+        ctx.fillStyle = "white";
+        ctx.fillText("Active Lights:"+ Light.list.length, 10, 100);
+        ctx.fillText("Game Objects:"+ GameObject.list.length, 10, 150);
+        ctx.fillText("Physic Objects:"+ Body.list.length, 10, 200);
+        ctx.fillText("Elapsed Time:"+   Time.time.toFixed(2), 10, 250);
+
+
+        //ctx.fillText("Event Counter:"+    GameObject.eventList.length, 10, h-50);
+        ctx.fillText("Event Counter:"+    GameObject.eventList.length, 10, h-50);
 
     }
 
@@ -166,25 +193,23 @@ class Engine
             let gfx = instance.gfx;
             let input = instance.inputs
             let camera = instance.camera;
+            
 
 
             instance.input.frame(instance.time.deltaTime);
 
             GameObject.GameObjectScheduler();
 
-            instance.gfx.beginScene();
-
-            instance.gfx.setViewPosition(instance.camera.position)
-
-            GameObject.CalculateMatrices()
-            instance.gfx.setViewProjectionMatrix(instance.camera.getViewProjectionMatrix())
-
+          
 
             if(loop)loop()
+            // pure rendering area
+            instance.gfx.beginScene();
+            GameObject.CalculateMatrices()
 
-
+            instance.gfx.setViewPosition(instance.camera.getPosition())
+            instance.gfx.setViewProjectionMatrix(instance.camera.getViewProjectionMatrix())
             
-
             instance.updateLights();
 
             instance.draw2D();
@@ -263,7 +288,15 @@ class Engine
         GameObject._id = 1;
         GameObject.rootObject =  new GameObject("Root")
 
-        this.gfx.createProgram(MULTIPLE_LIGHTS_VS ,MULTIPLE_LIGHTS_FS , {} , "defaultShader" );
+        this.gfx.createProgram(MULTIPLE_LIGHTS_VS ,MULTIPLE_LIGHTS_FS , ShaderProgram.DefaultLocations , "DefaultShader" );
+
+
+        this.gfx.setInt(this.gfx.shaderProgram.locations.texture ,0 )
+        this.gfx.setInt(this.gfx.shaderProgram.locations.textureNormal ,1 )
+        this.gfx.setInt(this.gfx.shaderProgram.locations.textureEmissive ,2 )
+        this.gfx.setInt(this.gfx.shaderProgram.locations.textureSpecular ,3 )
+       
+        
 
 
         Camera = this.camera

@@ -23,6 +23,7 @@ class GameObject
     this.name=name;
 
     this.isAlive = true;
+    this.visible = true;
 
     this.id=GameObject._id;
     GameObject._id++;
@@ -38,6 +39,8 @@ class GameObject
     this.texture=null;
     this.textureNormal=null;
     this.textureSpecular=null;
+
+    this.mask = 0;
 
     this.textures = [];
     this.lights = [];
@@ -85,9 +88,34 @@ class GameObject
      * @returns
      * @memberof GameObject
      */
-    addBoxBody(  xs , ys , zs , mass = 0)
+    addBoxBody( mass = 0 , scales = null  )
     {
-        var shape = new CANNON.Box(new CANNON.Vec3(  xs , zs ,ys   ));
+        if(scales == null){
+            scales = this.mesh.bbox;
+
+
+        }else
+        if(scales.length == 1)
+        {
+
+            scales = [scales[0] ,scales[0] ,scales[0] ]
+
+        }else
+        if(scales.length != 3)
+        {
+            console.log("Invalid parameters!");
+            return this;
+        }
+
+        let scaleVec = vec3.fromValues(scales[0] , scales[1] ,scales[2] )
+
+       // vec3.scale(forward, forward, z)
+
+       vec3.mul(scaleVec , scaleVec , this.scale);
+
+        
+
+        var shape = new CANNON.Box(new CANNON.Vec3(  scaleVec[0] , scaleVec[2] ,scaleVec[1]   ));
 
         var physicBody = new CANNON.Body({
             mass: mass, 
@@ -112,7 +140,7 @@ class GameObject
      */
     addPlaneBody(mass = 0)
     {
-        
+        console.log(  "quat "  , this.rotation[0], " : ", this.rotation[1]," : ", this.rotation[2] ," : ",this.rotation[3]) ;
 
         var shape = new CANNON.Plane();
      
@@ -120,11 +148,50 @@ class GameObject
            mass: mass, 
            position: new CANNON.Vec3(this.position[0], this.position[2], this.position[1]), // m
          // quaternion: new CANNON.Quaternion(this.rotation[0], this.rotation[1], this.rotation[2] ,this.rotation[3]),
+
+           quaternion: new CANNON.Quaternion(0, 0, 0 ,1),
            shape: shape
         });
         this.body = new Body( this ,physicBody )
 
         return this
+    }
+
+
+    /**
+     * Set current mask to given value
+     *
+     * @param {*} intValue
+     * @memberof GameObject
+     */
+    setMask(intValue)
+    {
+        this.mask = intValue;
+        return this;
+    }
+
+    /**
+     * Set selected mask values
+     *
+     * @param {*} intValue
+     * @memberof GameObject
+     */
+    appendMask(intValue)
+    {
+        this.mask |= intValue;
+        return this;
+    }
+
+    /**
+     * Clear selected mask values
+     *
+     * @param {*} intValue
+     * @memberof GameObject
+     */
+    removeMask(intValue)
+    {
+        this.mask &= !intValue;
+        return this;
     }
 
     /**
@@ -135,9 +202,11 @@ class GameObject
      * @returns
      * @memberof GameObject
      */
-    addSphereBody( radius , mass = 1)
+    addSphereBody(  mass = 1 ,radius = -1)
     {
 
+        if(radius <= 0) radius = this.mesh.radius;
+ 
          var shape = new CANNON.Sphere(radius)
      
          var physicBody = new CANNON.Body({
@@ -160,6 +229,43 @@ class GameObject
      */
     useMesh(MeshName) {
         this.mesh = new Mesh()
+        return this;
+    }
+
+    useTexture(texture)
+    {
+        if(!this.material)
+        {
+            this.material = new Material();
+        }
+        this.material.texture = texture;
+        return this;
+    }
+    useEmissive(texture)
+    {
+        if(!this.material)
+        {
+            this.material = new Material();
+        }
+        this.material.emissiveMap = texture;
+        return this;
+    }
+    useSpecular(texture)
+    {
+        if(!this.material)
+        {
+            this.material = new Material();
+        }
+        this.material.specularMap = texture;
+        return this;
+    }
+    useNormal(texture)
+    {
+        if(!this.material)
+        {
+            this.material = new Material();
+        }
+        this.material.normalMap = texture;
         return this;
     }
 
@@ -271,9 +377,38 @@ class GameObject
      * @memberof GameObject
      */
     setPosition (x, y, z) {
+     //  this.position = vec3.fromValues(x , y ,z)
         this.position[0] = x;
         this.position[1] = y;
         this.position[2] = z;
+        return this;
+    }
+
+    /**
+     * Use material as
+     *
+     * @param {*} mat
+     * @returns
+     * @memberof GameObject
+     */
+    useMaterial(mat)
+    {
+        this.material = mat;
+
+        return this;
+    }
+
+    /**
+     * Set new position from a vec3/vec4
+     *
+     * @param {vec3} vec
+     * @returns
+     * @memberof GameObject
+     */
+    setPositionVector (vec) {
+        this.position[0] =vec[0];
+        this.position[1] =vec[1];
+        this.position[2] =vec[2];
         return this;
     }
 
@@ -316,19 +451,61 @@ class GameObject
      * @returnsNumber
      * @memberof GameObject
      */
-    setScale (x, y, z) {
+    setScale (x, y=x, z=x) {
         this.scale[0] = x;
         this.scale[1] = y;
         this.scale[2] = z;
         return this;
     }
 
+    /**
+     *  Adjust Scale Vector
+     *
+     * @param {Number} x  
+     * @param {Number} y
+     * @param {Number} z
+     * @returnsNumber
+     * @memberof GameObject
+     */
+    setScaleVector (vec) {
+        this.scale[0] = vec[0];
+        this.scale[1] = vec[1];
+        this.scale[2] = vec[2];
+        return this;
+    }
+
+
+
+
+
+
     clone  (parent = null) {
 
+        let cloned = new GameObject();
+        let id = cloned.id
+        for(let key in this)
+        {
+          
 
+            if(this.hasOwnProperty(key))
+            {
+                console.log("my keys ", key ," type " ,  typeof(this[key] ) );
+
+                
+
+                cloned[key] = this[key];
+            }
+        }
+        cloned.id = id;
+        cloned.name = this.name+"Clone"
+
+
+
+
+        return cloned;
        
 
-        for(let key in this)
+       /* for(let key in this)
         {
           
 
@@ -339,23 +516,25 @@ class GameObject
             }
 
         }
+        var cloned = {};
+        cloned =  deepCopy(this , cloned)
 
-        let newObj =  deepCopy(this)
 
-
-        for(let key in newObj)
+        for(let key in cloned)
         {
           
 
             if(this.hasOwnProperty(key))
             {
-                console.log("clone keys ", key ," type " ,  typeof(newObj[key] ) );
+                console.log("clone keys ", key ," type " ,  typeof(cloned[key] ) );
 
             }
 
+            
+
         }
 
-        return;
+       
 
         var clone = new GameObject(this.name + "Clone")
 
@@ -372,23 +551,26 @@ class GameObject
         clone.id = id
         clone.name = name
         return clone;
+        */
     }
+
+
+    getFront(factor = 3)
+    {
+        let front = vec3.fromValues(this.position[0], this.position[1],this.position[2]);
+        vec3.scaleAndAdd(front ,front , this.getDirection() , factor)
+        return front;
+    }
+
 
     getDirection()
     {
-        let x , y ,z
 
-        const qw = this.rotation[0];
-        const qx = this.rotation[1];
-        const qy = this.rotation[2];
-        const qz = this.rotation[3];
+        const forward = vec3.fromValues(0 , 0 , -1);
+        let vec = vec3.create()
+        vec3.transformQuat(vec , forward , this.rotation);
 
-
-        x = 2 * (qx*qz + qw*qy)
-        y = 2 * (qy*qz - qw*qx)
-        z = 1 - 2 * (qx*qx + qy*qy)
-
-        return vec3.fromValues( x, y ,z);
+        return vec;
     }
 
 
@@ -525,7 +707,7 @@ GameObject.rootObject = null
 function _removeRec(obj)
 {
     for (let i = 0; i < obj.childs.length; i++) {
-        _CalculateMatricesRec(obj.childs[i], obj.matrix)
+        _removeRec(obj.childs[i] )
     }
     GameObject.list.splice( GameObject.list.indexOf(obj) , 1  );
     if(obj.body) obj.body.destroy();
@@ -545,6 +727,11 @@ GameObject.Remove = function(gameObject)
 
 // recursive version
 function _CalculateMatricesRec(obj, constMatrix) {
+
+    if(!obj.visible) return;
+
+
+ 
     mat4.fromRotationTranslationScale(obj.matrix, obj.rotation, obj.position, obj.scale);
 
     if(obj.body == null)
@@ -577,12 +764,15 @@ GameObject.Root = function()
 
 
 
-function deepCopy(oldObj , parent = null) {
+function deepCopy(oldObj , parent = null , key = null) {
     var newObj = oldObj;
     if (oldObj && typeof oldObj === 'object') {
 
         if(oldObj instanceof GameObject)
         {
+
+            console.log("gameobjet instance")
+
             //newObj = deepCopy(oldObj , newObj);
 
             //newObj = {}
@@ -598,6 +788,8 @@ function deepCopy(oldObj , parent = null) {
 
                  //   newObj[key] = oldObj[key];
 
+                 console.log("key loaded in " , key)
+
                  obj[key] = oldObj[key];
                 }
     
@@ -605,17 +797,11 @@ function deepCopy(oldObj , parent = null) {
             newObj = obj;
 
 
-        }else
+        }else         
         if(oldObj instanceof Light)
         {
             let l = new Light(oldObj.lightType ,oldObj.color);
             l.attachGameObject(parent);
-            
-        }else
-        if(oldObj instanceof Texture)
-        {
-         
-            newObj = oldObj ;
             
         }else
         if(oldObj instanceof Body)
@@ -630,13 +816,16 @@ function deepCopy(oldObj , parent = null) {
             newObj = oldObj;
         }else{
             newObj = Object.prototype.toString.call(oldObj) === "[object Array]" ? [] : {};
-            for (var i in oldObj) {
-                newObj[i] = deepCopy(oldObj[i] , newObj);
+            for (var key in oldObj) {
+                newObj[key] = deepCopy(oldObj[key] , newObj , key);
             }
         }
  
         //console.log(" instance of  , " , (oldObj instanceof GameObject))
 
+    }else
+    if (oldObj && typeof oldObj === 'function') {
+     
     }
     return newObj;
 }

@@ -24,6 +24,8 @@ struct Material {
     vec3 specular;
 
     int useTexture;
+    int useEmissiveMap;
+    int useNormalMap;   
     int useSpecularMap;    
 
 }; 
@@ -60,9 +62,9 @@ uniform vec3 globalAmbient;
 uniform Light lights[30];
 
 uniform sampler2D textureDiffuse;
+uniform sampler2D textureNormal;
+uniform sampler2D textureEmissive;
 uniform sampler2D textureSpecular;
-
-
 
 // function prototypes
 vec3 CalcDirLight(Light light, vec3 normal, vec3 viewDir);
@@ -72,7 +74,13 @@ vec3 CalcSpotLight(Light light, vec3 normal, vec3 fragPos, vec3 viewDir);
 void main()
 {    
     // properties
-    vec3 norm = normalize(v_vertexNormWS.xyz);
+    vec3 norm ;
+
+
+    norm = normalize(v_vertexNormWS.xyz);
+    
+    
+    
     vec3 viewDir = normalize(viewPos - v_vertexPosWS.xyz);
 
     
@@ -85,6 +93,8 @@ void main()
     // == =====================================================
     // phase 1: directional lighting
     vec3 res = vec3(0);
+
+
 
     for(int i = 0 ; i < 30 ; i ++)
     {
@@ -115,7 +125,11 @@ void main()
     }
  
       
-
+    if(material.useEmissiveMap != 0)
+    {
+          res += texture2D(textureEmissive , v_TexCoord).xyz;
+          
+    }
 
 
    /* if(material.useTexture == 1)
@@ -185,9 +199,9 @@ vec3 CalcPointLight(Light light, vec3 normal, vec3 fragPos, vec3 viewDir)
 // calculates the color when using a spot light.
 vec3 CalcSpotLight(Light light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
-    vec3 lightDir = normalize(light.position - fragPos); //light.position - fragPos
+    vec3 lightDir = normalize(light.position - fragPos);
     // diffuse shading
-    
+    float diff = max(dot(normal, lightDir), 0.0);
     // specular shading
     vec3 reflectDir = reflect(-lightDir, normal);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
@@ -195,52 +209,41 @@ vec3 CalcSpotLight(Light light, vec3 normal, vec3 fragPos, vec3 viewDir)
     float distance = length(light.position - fragPos);
     float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));    
     // spotlight intensity
-  float diff = max(dot(normal, lightDir ), 0.0);
 
- 
+    vec3 LightToPixel = normalize(fragPos - light.position);
+    float SpotFactor = dot(LightToPixel, light.direction);
 
-    float theta = dot(lightDir, normalize(-light.direction)); 
+
+    float factor = 0.0;
+    if(SpotFactor > light.outerCutOff)
+    {
+         float x = (1.0 - (1.0 - SpotFactor) * 1.0/(1.0 - light.outerCutOff));
+        
+        factor = x;
+    } 
+
+    
+
+    /* float theta = dot(lightDir, normalize(light.direction)); 
     float epsilon = light.cutOff - light.outerCutOff;
     float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
-    // combine results
-    vec3 ambient = light.color * material.ambient;
-    vec3 diffuse = light.color * diff *material.diffuse;
-    vec3 specular = light.color * spec *material.specular;;
-
-
-    ambient *= attenuation * intensity;
-    diffuse *= attenuation * intensity;
-    specular *= attenuation * intensity;
-    return (ambient + diffuse + specular);
-
-
-   /* vec3 L = (light.position - viewDir).xyz;
-    vec3 reflectDir = reflect(-L, normal);
-    
-    float distance = length(L);
-   
-
-    float diff = max(dot(normal, L ), 0.0);
-
-
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+ 
+    // combine results*/
+    float intensity = factor;
 
     vec3 ambient = light.color * material.ambient;
     vec3 diffuse = light.color * diff *material.diffuse;
     vec3 specular = light.color * spec;
 
 
-
-     float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));    
-
-    float spotMinAngle = cos(light.outerCutOff);
-	float spotMaxAngle = (light.cutOff + 1.0) / 2.0;
-	float cosAngle = dot(light.direction.xyz, L);
-	float intensity =  smoothstep(spotMinAngle, spotMaxAngle, cosAngle);
-
-
-    diffuse *= attenuation* intensity;
+    ambient *= attenuation * intensity;
+    diffuse *= attenuation * intensity;
     specular *= attenuation * intensity;
+
+
+    
+    //*/
  
-   return (ambient + diffuse + specular);*/
+    return (ambient + diffuse + specular);
+
 }` 

@@ -27,11 +27,11 @@ class Light {
         this.autoDirection = false;
         this.color = vec3.fromValues(1, 1, 1);
    
-        this.outerCutOff = 0.9;
-        this.cutOff = 0.2 ;
+        this.outerCutOff = 0.95;
+        this.cutOff = 1 ;
         this.constantAttenuation = 0.2;
-        this.linearAttenuation = 0.1;
-        this.quadraticAttenuation = 0.005;
+        this.linearAttenuation = 0.333;
+        this.quadraticAttenuation = 0.001;
         this.lightType = type;
         this._oldlightType = type;
         this.gameObject = gameObject;
@@ -39,7 +39,7 @@ class Light {
 
 
         
-
+        this.distance = 3;
 
         Light.list.push(this);
         this.lightType = this._oldlightType;
@@ -77,6 +77,8 @@ class Light {
         return this
 
     }
+
+    
 
     /**
      * Set direction vector
@@ -150,8 +152,9 @@ class Light {
             vec3.transformMat4(vec , vec ,this.gameObject.matrix )
             gl.uniform3fv(lightLocs[num].position, vec);
 
-            if(this.autoDirection) this.direction = this.gameObject.getDirection();
-            gl.uniform3fv(lightLocs[num].direction,   this.direction );
+           // if(this.autoDirection)
+             this.direction = this.gameObject.getDirection();
+             gl.uniform3fv(lightLocs[num].direction,   this.direction );
          // gl.uniform3fv(lightLocs[num].direction,  dir );
 
 
@@ -209,12 +212,21 @@ class Light {
      * @returns
      * @memberof Light
      */
-    useObject()
+    useObject( generateMesh = true)
     {
-        this.gameObject = new GameObject("lightObj" , null , "Sphere" );
+        if(generateMesh)
+        {
+            if(this.lightType == Light.Types.PointLight)
+            this.gameObject = new GameObject("lightObj" , null , "LSphere" );
+            else
+            this.gameObject = new GameObject("lightObj" , null , "Cone" ).setScale(0.3,0.3,0.3);
+        }else
+            this.gameObject = new GameObject("lightObj" );
+
+
         this.gameObject.material = Material.Light(this.color);
         this.gameObject.position = this.position;
-        this.gameObject.setScale(0.2,0.2,0.2);
+       
         if(this.gameObject.lights.indexOf(this) == -1)
             this.gameObject.lights.push(this)
         return this
@@ -250,17 +262,28 @@ class Light {
      * @param {*} val
      * @memberof Light
      */
-    setIntensity(val)
+    setIntensity(val , dist = -1)
     {
         let rval = 1.001 - Math.min(1 ,Math.max(val, 0) ) 
 
         console.log("rval" , rval)
-        this.constantAttenuation = rval *0.4
-        this.linearAttenuation = rval*rval*0.1
-        this.quadraticAttenuation = rval*0.001
-       
+        this.constantAttenuation = val
+        this.setDistance(dist)
+    }
+
+    setDistance(dist)
+    {
+        if(dist > 0)
+        {
+            this.distance = dist;
+            this.linearAttenuation = 1.0/dist;
+            this.distance = dist
+        }
+
 
     }
+
+    
 
 
 }

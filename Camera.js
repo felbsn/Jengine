@@ -127,6 +127,33 @@ class Camera {
     }
 
     /**
+     * Get position of camera
+     *
+     * @returns Vec3
+     * @memberof Camera
+     */
+    getPosition() {
+
+        return this.position;
+    }
+
+    /**
+     * Get  right
+     *
+     * @returns Vec3
+     * @memberof Camera
+     */
+    getRight(fac = 3) {
+
+        var mat = this.getViewMatrix()
+        var strafe = vec3.fromValues(mat[0], mat[1 * 4 + 0], mat[2 * 4 + 0]);
+        vec3.normalize(strafe ,strafe)
+        vec3.scale(strafe, strafe, fac)
+
+        return strafe;
+    }
+
+    /**
      * Get Direction of camera
      *
      * @returns Vec3
@@ -135,7 +162,7 @@ class Camera {
     getDirection() {
 
         var mat = this.getViewMatrix()
-        var forward = vec3.fromValues(mat[2], mat[1 * 4 + 2], mat[2 * 4 + 2]);
+        var forward = vec3.fromValues(-mat[2], -mat[1 * 4 + 2], -mat[2 * 4 + 2]);
         vec3.normalize(forward, forward);
 
         return forward;
@@ -152,7 +179,9 @@ class Camera {
         vec4.scale(dir, dir, 3)
         var vec = vec4.create();
         vec4.add(vec, dir, this.position);
-        return vec;
+
+        var vec_3 = vec3.fromValues(vec[0] , vec[1] , vec[2])
+        return vec_3;
     }
 
     /**
@@ -187,6 +216,19 @@ class Camera {
 
         this.isRotationDirty = true;
         this.isViewDirty = true;
+    }
+
+
+    getRotation()
+    {
+        let mat = mat3.create()
+
+
+        mat3.fromMat4(mat , this.getRotationMatrix());
+
+        var q = quat.create()
+        quat.fromMat3(quat , mat);
+        return q;
     }
 
     /**
@@ -230,6 +272,8 @@ class Camera {
     getViewMatrix() {
         if (this.isViewDirty) {
             this.calculateMatrices();
+
+        
         }
         return this.viewMatrix;
     }

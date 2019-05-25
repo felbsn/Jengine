@@ -103,23 +103,18 @@ class Texture
      * @param {*} num
      * @memberof Texture
      */
-    bind( num)
+    bind( num = 0)
     {
 
-        if(!Engine.Instance) throw error("Engine not initialized!")
+        if(!Engine.Instance) throw "Engine not initialized!";
         let gl = Engine.Instance.gfx.gl;
 
-        if(!num)
-        {
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, this.tex);
-
-
-        }else
         {
             gl.activeTexture(gl["TEXTURE"+num]);
             gl.bindTexture(gl.TEXTURE_2D, this.tex);
         }
+
+       
     }
 
     /**
@@ -127,9 +122,9 @@ class Texture
      *
      * @memberof Texture
      */
-    bind( )
+    /*bind( )
     {
-        if(!Engine.Instance) throw error("Engine not initialized!")
+        if(!Engine.Instance) throw "Engine not initialized!";
         let gl = Engine.Instance.gfx.gl;
 
         let num =  this.unit;
@@ -145,7 +140,7 @@ class Texture
             gl.activeTexture(gl["TEXTURE"+num]);
             gl.bindTexture(gl.TEXTURE_2D, this.tex);
         }
-    }
+    }*/
 
 
 }
