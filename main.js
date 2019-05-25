@@ -420,6 +420,8 @@ function horroScape()
 
                 this.obj.onDestroy =   monkeyDestroy
 
+ 
+
 
                  this.obj.hp = 5;
 
@@ -446,6 +448,12 @@ function horroScape()
 
                 this.obj.mask = 2;
                 this.obj.addSphereBody(5 ,4 );
+
+                var target  = vec3.create()
+                vec3.sub(target , Camera.getPosition() ,  this.obj.position);
+
+
+                this.obj.body.applyForceVector(target , 1);
               
             }
             
@@ -628,6 +636,8 @@ function gunnerLoop()
 
         this.gunobj.translate(0.7,0,0);
         this.gunobj.setRotation(90 ,0 ,0)
+
+        gunobj.onUpdate = function(){ this.rotate(0 ,  Time.deltaTime *90 ,0 );}
 
         this.nozzle =  new GameObject("Nozzle" ,null , );
         this.nozzle.setParent( this.gunobj)
