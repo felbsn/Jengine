@@ -223,6 +223,42 @@ function horroScape()
 
     ])
 
+
+    new Texture().fromURL("res/Tex/shipTex.jpg" , function(texture){
+
+        let jet = new GameObject("Jet", null, "Jet");
+        jet.translate(0, 15, -5)
+
+        jet.material = Material.Metal()
+
+        jet.material.texture = texture;
+
+        jet.deg = 0;
+        jet.onStart = function () {
+            this.deg = 0;
+            this.r = 15;
+            this.speed = 10;
+
+            console.log("started , ", this.deg)
+        }
+        jet.onUpdate = function (input, time) {
+            this.deg += time.deltaTime * this.speed;
+            this.rotate(0, this.speed * time.deltaTime, 0)
+            this.position[1] =  Math.sin(time.time*0.1) * 5 +7;
+            this.position[0] =  Math.sin(time.time) * 7 ;
+            this.position[2] =  Math.sin(time.time) * 15;
+        }
+
+        new Texture().fromURL("res/Tex/shipEmissive.jpg" , function(texture){
+            jet.useEmissive(texture)
+        })
+
+        new Texture().fromURL("res/Tex/shipNorm.jpg" , function(texture){
+            jet.useNormal(texture)
+        })
+
+    })
+
     new Texture().fromURL("res/Tex/skydomeL.png" , function(texture){
 
         let testObj = new GameObject("simple"  ,null ,"Sphere" ).setScale(600 , 600 ,600);
@@ -323,6 +359,8 @@ function horroScape()
         o2.setPositionVector(this.position);
         o2.setMask(1).useMaterial(Material.Metal())
         o2.position[2] -=0.2
+        o2.onDestroy = o1.onDestroy = o0.onDestroy = function(){SoundManager.play("s1");}
+
 
         o0.addSphereBody(0.3);
         o0.body.applyForce( Math.random()-0.5 , 1 , Math.random()-0.5 , 1 );
@@ -358,16 +396,67 @@ function horroScape()
         this.lastSpawn =  Time.time;
         console.log("spawn!")
        }
-
-      
-
-
     }
 
     let cloneObj = spawner.clone();
 
     cloneObj.interval = 6;
  
+
+
+    let bspawner = new GameObject("bossSPawn" , null );
+    bspawner.onUpdate = function()
+    {
+        if(!this.lastSpawn) this.lastSpawn = 0;
+        if(Time.time - this.lastSpawn > 10 )
+        {
+            if(this.obj && this.obj.isAlive)
+            {
+
+            }else
+            {
+
+                this.obj = new GameObject("boss" , null  , "Monkey");
+
+                this.obj.onDestroy =   monkeyDestroy
+
+
+                 this.obj.hp = 5;
+
+                this.obj.setScale(3 ,3, 3)
+                this.obj.material = Material.Light(vec3.fromValues(1 , 0.1,0.1));
+
+
+                let l0 = new Light(Light.Types.PointLight );
+                l0.setColor(0.9,0.2,0.2);
+                l0.useObject();
+               // l0.gameObject.setScale(0.2)
+                l0.gameObject.setParent(this.obj)
+
+                l0.gameObject.onUpdate= function(){ this.setPosition(  Math.sin(Time.time*2)*2, Math.cos(Time.time)*-1 , Math.sin(Time.time) ); }
+
+
+                let l1 = new Light(Light.Types.PointLight );
+                l1.setColor(0.9,0.2,0.2);
+                l1.useObject();
+              //  l1.gameObject.setScale(0.2)
+                l1.gameObject.setParent(this.obj)
+                l1.gameObject.onUpdate= function(){ this.setPosition(  Math.sin(Time.time)*-1.5, Math.cos(Time.time)*2 , Math.cos(Time.time*2)   ); }
+
+
+                this.obj.mask = 2;
+                this.obj.addSphereBody(5 ,4 );
+              
+            }
+            
+
+
+            this.lastSpawn = Time.time
+        }
+
+
+    }
+
 
     
     {
@@ -499,6 +588,15 @@ function basciLoop()
             if(collision.body.gameObject.mask & 1)
             {
                 GameObject.DestroyObject(collision.body.gameObject);  
+            }else
+            if(collision.body.gameObject.mask & 2)
+            {
+                collision.body.gameObject.hp--;
+                if( collision.body.gameObject.hp == 0)
+                {
+                    GameObject.DestroyObject(collision.body.gameObject);  
+                    GameObject.DestroyObject(this); 
+                }
             }
 
               //GameObject.DestroyObject(collision.body.gameObject);          
@@ -553,7 +651,19 @@ function gunnerLoop()
             {
                 GameObject.DestroyObject(collision.body.gameObject);  
                 GameObject.DestroyObject(this);  
-            }      
+            }else
+            if(collision.body.gameObject.mask & 2)
+            {
+                collision.body.gameObject.hp--;
+                SoundManager.play("s1")
+                if( collision.body.gameObject.hp == 0)
+                {
+                   
+                    GameObject.DestroyObject(collision.body.gameObject);  
+                    
+                }
+                GameObject.DestroyObject(this); 
+            }
         }
         obj.onStart = function() {this.time =Time.time;}
         obj.onUpdate = function(){ if(Time.time - this.time > 10) GameObject.DestroyObject(this); }
@@ -581,7 +691,19 @@ function gunnerLoop()
             {
                 GameObject.DestroyObject(collision.body.gameObject);  
                 
-            }      
+            }else
+            if(collision.body.gameObject.mask & 2)
+            {
+                collision.body.gameObject.hp--;
+                SoundManager.play("s1")
+                if( collision.body.gameObject.hp == 0)
+                {
+                   
+                    GameObject.DestroyObject(collision.body.gameObject);  
+                  
+                }
+                GameObject.DestroyObject(this); 
+            }
         }
         obj.onStart = function() {this.time =Time.time;}
         obj.onUpdate = function(){ if(Time.time - this.time > 10) GameObject.DestroyObject(this); }
