@@ -5,3 +5,7 @@
     position: absolute;
     visibility: hidden;
 }
+
+*{
+    overflow: hidden;
+}

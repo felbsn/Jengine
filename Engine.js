@@ -44,7 +44,15 @@ class Engine
 
         this.soundManager = new SoundManager();
 
+        this.lastFrameTime = 0;
+        this.fps = 0;
+        this.frameCounter =0;
 
+        this.batchInterval = 10;
+
+        this.batchFps = 0;
+        this.batchFrameCounter =0;
+        this.lastBatchFrameTime = 0;
 
         this.world = new CANNON.World();
         this.world.gravity.set(0, 0, -9.82);  
@@ -148,12 +156,15 @@ class Engine
         ctx.font = "30px Arial";
 
         ctx.fillStyle = "white";
-        ctx.fillText("fps:"+ (1.0/Time.deltaTime).toFixed(2), 10, 50);
+        ctx.fillText("Fps:"+ instance.fps.toFixed(2) , 10, 50);
+
+        ctx.fillText("Avg fps:"+ instance.batchFps.toFixed(2)+ "/" + instance.batchInterval.toFixed(1) +"s" , 10, 100);
+        //ctx.fillText("fps:"+ (1.0/Time.deltaTime).toFixed(2), 10, 50);
         ctx.fillStyle = "white";
-        ctx.fillText("Active Lights:"+ Light.list.length, 10, 100);
-        ctx.fillText("Game Objects:"+ GameObject.list.length, 10, 150);
-        ctx.fillText("Physic Objects:"+ Body.list.length, 10, 200);
-        ctx.fillText("Elapsed Time:"+   Time.time.toFixed(2), 10, 250);
+        ctx.fillText("Active Lights:"+ Light.list.length, 10, 150);
+        ctx.fillText("Game Objects:"+ GameObject.list.length, 10, 200);
+        ctx.fillText("Physic Objects:"+ Body.list.length, 10, 250);
+        ctx.fillText("Elapsed Time:"+   Time.time.toFixed(2), 10, 300);
 
 
         //ctx.fillText("Event Counter:"+    GameObject.eventList.length, 10, h-50);
@@ -184,6 +195,29 @@ class Engine
             {
                 instance.time.advance(elapsedMs);
                 instance.world.step(1/60, Time.deltaTime, 3);
+
+                let timePassFrame = instance.time.time - instance.lastFrameTime;
+                if(timePassFrame >= 0.5)
+                {
+                    instance.fps = instance.frameCounter / timePassFrame;
+                    instance.frameCounter = 0;
+
+                    instance.lastFrameTime = instance.time.time
+                }
+                instance.frameCounter++;
+
+
+                let timePassBatch = instance.time.time - instance.lastBatchFrameTime;
+                if(timePassBatch >= instance.batchInterval)
+                {
+                    instance.batchFps = instance.batchFrameCounter / timePassBatch;
+                    instance.batchFrameCounter = 0;
+
+                    instance.lastBatchFrameTime = instance.time.time
+                }
+                instance.batchFrameCounter++;
+ 
+
 
 
                 Body.PhysicScheduler();
