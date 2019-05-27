@@ -288,6 +288,14 @@ class Camera {
         // sıralama gerçekten önemli
         if (this.isRotationDirty) {
 
+
+
+
+            if(this.gameObject)
+            {
+                
+            }
+
  
           /*  let sum = vec3.fromValues(0 , 0, -1)
             let up = vec3.fromValues(0 , -1, 0)

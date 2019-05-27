@@ -15,16 +15,16 @@ function main()
 
 
     engine.setup(
-        testSuite0
-     //horroScape
+       // testSuite0
+     horroScape
       
     );
 
     engine.start(function()
     {
 
-        basciLoop()
-        //gunnerLoop()
+       // basciLoop()
+        gunnerLoop()
 
 
 
@@ -53,28 +53,10 @@ function testSuite0()
 
         new Texture().fromURL("res/Tex/shipTex.jpg" , function(texture){
 
-            let jet = new GameObject("Jet", null, "Jet");
+            let jet = new GameObject("Jet", null, "Cube");
             jet.translate(0, 15, -5)
     
-            jet.material = Material.Metal()
-    
             jet.material.texture = texture;
-    
-            //jet.deg = 0;
-            /*jet.onStart = function () {
-                this.deg = 0;
-                this.r = 15;
-                this.speed = 10;
-    
-                console.log("started , ", this.deg)
-            }*/
-            /*jet.onUpdate = function (input, time) {
-                this.deg += time.deltaTime * this.speed;
-                this.rotate(0, this.speed * time.deltaTime, 0)
-                this.position[1] =  Math.sin(time.time*0.1) * 5 +7;
-                this.position[0] =  Math.sin(time.time) * 7 ;
-                this.position[2] =  Math.sin(time.time) * 15;
-            }*/
     
             new Texture().fromURL("res/Tex/shipEmissive.jpg" , function(texture){
                 jet.useEmissive(texture)
@@ -82,31 +64,19 @@ function testSuite0()
                 new Texture().fromURL("res/Tex/shipNorm.jpg" , function(texture){
                     jet.useNormal(texture)
 
-                    for(let i = 0 ; i < 497; i ++)
+                    for(let i = 0 ; i < 496; i ++)
                     {
 
-                     
-
-
+                    
                         let x = (Math.random()-0.5)*60
                         let y = (Math.random()-0.5)*60
                         let z = (Math.random()-0.5)*60
 
-
-                        
                         let obj = new GameObject("j" ,null, "Jet").translate(x , y ,z)
 
-                        .addBoxBody(1);
+                        //.addBoxBody(1);
                         obj.useMaterial(jet.material)
                        
-
-                        
-                        //.addBoxBody(1);
-
-                       // clone.translate(x , y ,z).addBoxBody(1);
-            
-                       // new GameObject("Plane" ,null, "Cube").translate(x , y ,z).addBoxBody(1);
-            
                     }
 
 
@@ -120,42 +90,24 @@ function testSuite0()
         })
 
 
-
-        /*for(let i = 0 ; i < 497; i ++)
-        {
-            let x = (Math.random()-0.5)*15
-            let y = (Math.random()-0.5)*15
-            let z = (Math.random()-0.5)*15
-
-            new GameObject("Plane" ,null, "Cube").translate(x , y ,z).addBoxBody(1);
-
-        }*/
-
-      
-
+    
        let l  =new Light(Light.Types.DirectionalLight).setColorHex("#F0F0F0")
        l.setDirection(0 , -1 , -0.2);
 
 
 
        let objx = new GameObject("cameraHolder");
+
        objx.onUpdate = function(input , time)
        {
            let delta = time.deltaTime
            let mov = delta * 10
-           let mouseMov = delta * 15
-           Camera.rotateRollPitchYaw( 0, input.mouse.relY  ,input.mouse.relX  )
-           Camera.translate( input.xAxis()*mov ,input.yAxis() *mov,input.zAxis() *mov)
+
+          
+          Camera.rotateRollPitchYaw( 0, input.mouse.relY  ,input.mouse.relX  )
+          Camera.translate( input.xAxis()*mov ,input.yAxis() *mov,input.zAxis() *mov)
    
        }
-
-
-
-      // let l0 = new Light(Light.Types.PointLight).setColorHex("#FF8F7F").useObject();
-      // let l1 = new Light(Light.Types.PointLight).setColorHex("#0D8FFF").useObject();
-     //  let l2 = new Light(Light.Types.PointLight).setColorHex("#0Fe464").useObject();
-  
-
 }
 
 
@@ -166,7 +118,6 @@ function horroScape()
         ["s1" ,'res/sounds/clang_metal_2.ogg'],
 
     ])
-
 
     new Texture().fromURL("res/Tex/shipTex.jpg" , function(texture){
 
@@ -254,12 +205,7 @@ function horroScape()
                 testObj.addBoxBody(0);
               
             }
-
-            
         }
-
-
-
     })
 
 
@@ -272,8 +218,6 @@ function horroScape()
         if(!this.interval) this.interval= 5;
         this.lastSpawn = 0;
     }
-
-
 
     function monkeyDestroy()
     {
@@ -370,7 +314,7 @@ function horroScape()
                 let l0 = new Light(Light.Types.PointLight );
                 l0.setColor(0.9,0.2,0.2);
                 l0.useObject();
-               // l0.gameObject.setScale(0.2)
+    
                 l0.gameObject.setParent(this.obj)
 
                 l0.gameObject.onUpdate= function(){ this.setPosition(  Math.sin(Time.time*2)*2, Math.cos(Time.time)*-1 , Math.sin(Time.time) ); }
@@ -379,7 +323,7 @@ function horroScape()
                 let l1 = new Light(Light.Types.PointLight );
                 l1.setColor(0.9,0.2,0.2);
                 l1.useObject();
-              //  l1.gameObject.setScale(0.2)
+
                 l1.gameObject.setParent(this.obj)
                 l1.gameObject.onUpdate= function(){ this.setPosition(  Math.sin(Time.time)*-1.5, Math.cos(Time.time)*2 , Math.cos(Time.time*2)   ); }
 
@@ -462,10 +406,7 @@ function horroScape()
 
         if(Input.isKeyPressed(key.spacebar) == true)
         {
-           // Camera.position[1] += 3
            this.upVec = 10;
-
-           // Camera.position[1] +=  this.upVec * time.deltaTime;
         }
         this.upVec += -9* time.deltaTime*2;
         if(this.upVec  <= -9) this.upVec  = -9;
@@ -484,8 +425,6 @@ function horroScape()
     {
         SoundManager.play("s0");
     }
-
-    
 
 
 
