@@ -49,6 +49,12 @@
                       </a></li>
                     
                       <li><a
+                        href='#bodyapplyforcevector'
+                        class='regular pre-open'>
+                        .applyForceVector
+                      </a></li>
+                    
+                      <li><a
                         href='#bodydestroy'
                         class='regular pre-open'>
                         .destroy
@@ -98,6 +104,18 @@
                         href='#cameratranslate'
                         class='regular pre-open'>
                         .translate
+                      </a></li>
+                    
+                      <li><a
+                        href='#cameragetposition'
+                        class='regular pre-open'>
+                        .getPosition
+                      </a></li>
+                    
+                      <li><a
+                        href='#cameragetright'
+                        class='regular pre-open'>
+                        .getRight
                       </a></li>
                     
                       <li><a
@@ -253,6 +271,24 @@
                       </a></li>
                     
                       <li><a
+                        href='#gameobjectsetmask'
+                        class='regular pre-open'>
+                        .setMask
+                      </a></li>
+                    
+                      <li><a
+                        href='#gameobjectappendmask'
+                        class='regular pre-open'>
+                        .appendMask
+                      </a></li>
+                    
+                      <li><a
+                        href='#gameobjectremovemask'
+                        class='regular pre-open'>
+                        .removeMask
+                      </a></li>
+                    
+                      <li><a
                         href='#gameobjectaddspherebody'
                         class='regular pre-open'>
                         .addSphereBody
@@ -283,6 +319,12 @@
                       </a></li>
                     
                       <li><a
+                        href='#gameobjectaddlight'
+                        class='regular pre-open'>
+                        .addLight
+                      </a></li>
+                    
+                      <li><a
                         href='#gameobjecttranslate'
                         class='regular pre-open'>
                         .translate
@@ -292,6 +334,18 @@
                         href='#gameobjectsetposition'
                         class='regular pre-open'>
                         .setPosition
+                      </a></li>
+                    
+                      <li><a
+                        href='#gameobjectusematerial'
+                        class='regular pre-open'>
+                        .useMaterial
+                      </a></li>
+                    
+                      <li><a
+                        href='#gameobjectsetpositionvector'
+                        class='regular pre-open'>
+                        .setPositionVector
                       </a></li>
                     
                       <li><a
@@ -310,6 +364,12 @@
                         href='#gameobjectsetscale'
                         class='regular pre-open'>
                         .setScale
+                      </a></li>
+                    
+                      <li><a
+                        href='#gameobjectsetscalevector'
+                        class='regular pre-open'>
+                        .setScaleVector
                       </a></li>
                     
                     </ul>
@@ -446,6 +506,12 @@
                         href='#graphicsgetheight'
                         class='regular pre-open'>
                         .getHeight
+                      </a></li>
+                    
+                      <li><a
+                        href='#graphicsgetshader'
+                        class='regular pre-open'>
+                        .getShader
                       </a></li>
                     
                       <li><a
@@ -620,6 +686,12 @@
                         .attachGameObject
                       </a></li>
                     
+                      <li><a
+                        href='#lightsetintensity'
+                        class='regular pre-open'>
+                        .setIntensity
+                      </a></li>
+                    
                     </ul>
                   
                   
@@ -670,6 +742,12 @@
                         href='#materialblue'
                         class='regular pre-open'>
                         .Blue
+                      </a></li>
+                    
+                      <li><a
+                        href='#materialwhite'
+                        class='regular pre-open'>
+                        .White
                       </a></li>
                     
                       <li><a
@@ -805,9 +883,9 @@
                       </a></li>
                     
                       <li><a
-                        href='#texturebind'
+                        href='#texture'
                         class='regular pre-open'>
-                        .bind
+                        .
                       </a></li>
                     
                     </ul>
@@ -949,7 +1027,7 @@
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>applyForce(x, y, z, intencity)</span>
+            <span class='code strong strong truncate'>applyForce(x, y, z, intensity)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -959,7 +1037,7 @@
 
   <p>Apply force to linked physic body</p>
 
-    <div class='pre p1 fill-light mt0'>applyForce(x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, z: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, intencity: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
+    <div class='pre p1 fill-light mt0'>applyForce(x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, z: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, intensity: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
   
   
 
@@ -1000,7 +1078,75 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>intencity</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+            <span class='code bold'>intensity</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bodyapplyforcevector'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>applyForceVector(vec, intensity)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Apply force to linked physic body</p>
+
+    <div class='pre p1 fill-light mt0'>applyForceVector(vec: vec3, intensity: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>vec</span> <code class='quiet'>(vec3)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>intensity</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
 	    
           </div>
           
@@ -1365,6 +1511,130 @@
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='cameragetposition'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>getPosition()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get position of camera</p>
+
+    <div class='pre p1 fill-light mt0'>getPosition(): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        Vec3
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='cameragetright'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>getRight(fac)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get  right</p>
+
+    <div class='pre p1 fill-light mt0'>getRight(fac: any): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>fac</span> <code class='quiet'>(any
+            = <code>3</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        Vec3
+
+      
+    
   
 
   
@@ -2368,7 +2638,7 @@
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>addBoxBody(xs, ys, zs, mass)</span>
+            <span class='code strong strong truncate'>addBoxBody(mass, scales, xs, ys, zs)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2378,7 +2648,7 @@
 
   <p>for physics add Box collider</p>
 
-    <div class='pre p1 fill-light mt0'>addBoxBody(xs: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, ys: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, zs: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, mass: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>): any</div>
+    <div class='pre p1 fill-light mt0'>addBoxBody(mass: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, scales: any, xs: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, ys: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, zs: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>): any</div>
   
   
 
@@ -2392,6 +2662,24 @@
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>mass</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
+            = <code>0</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scales</span> <code class='quiet'>(any
+            = <code>null</code>)</code>
+	    
+          </div>
+          
+        </div>
       
         <div class='space-bottom0'>
           <div>
@@ -2412,14 +2700,6 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>zs</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>mass</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
 	    
           </div>
           
@@ -2525,11 +2805,11 @@
       </div>
     </div>
   
-    <div class='border-bottom' id='gameobjectaddspherebody'>
+    <div class='border-bottom' id='gameobjectsetmask'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>addSphereBody(radius, mass)</span>
+            <span class='code strong strong truncate'>setMask(intValue)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2537,9 +2817,9 @@
 
   
 
-  <p>for physics add shpere collider</p>
+  <p>Set current mask to given value</p>
 
-    <div class='pre p1 fill-light mt0'>addSphereBody(radius: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, mass: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): any</div>
+    <div class='pre p1 fill-light mt0'>setMask(intValue: any)</div>
   
   
 
@@ -2556,7 +2836,188 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>radius</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+            <span class='code bold'>intValue</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gameobjectappendmask'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>appendMask(intValue)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Set selected mask values</p>
+
+    <div class='pre p1 fill-light mt0'>appendMask(intValue: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>intValue</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gameobjectremovemask'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>removeMask(intValue)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Clear selected mask values</p>
+
+    <div class='pre p1 fill-light mt0'>removeMask(intValue: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>intValue</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gameobjectaddspherebody'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>addSphereBody(mass, radius)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>for physics add shpere collider</p>
+
+    <div class='pre p1 fill-light mt0'>addSphereBody(mass: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, radius: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>mass</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+            = <code>1</code>)</code>
 	    
           </div>
           
@@ -2564,8 +3025,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>mass</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
-            = <code>1</code>)</code>
+            <span class='code bold'>radius</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
+            = <code>-1</code>)</code>
 	    
           </div>
           
@@ -2874,6 +3335,66 @@
       </div>
     </div>
   
+    <div class='border-bottom' id='gameobjectaddlight'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>addLight(hexColor)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Add light to object</p>
+
+    <div class='pre p1 fill-light mt0'>addLight(hexColor: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>hexColor</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='gameobjecttranslate'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -3006,6 +3527,142 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>z</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gameobjectusematerial'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>useMaterial(mat)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use material as</p>
+
+    <div class='pre p1 fill-light mt0'>useMaterial(mat: any): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>mat</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gameobjectsetpositionvector'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>setPositionVector(vec)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Set new position from a vec3/vec4</p>
+
+    <div class='pre p1 fill-light mt0'>setPositionVector(vec: vec3): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>vec</span> <code class='quiet'>(vec3)</code>
 	    
           </div>
           
@@ -3238,6 +3895,92 @@
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>x</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>y</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
+            = <code>x</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>z</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
+            = <code>x</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gameobjectsetscalevector'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>setScaleVector(vec, x, y, z)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Adjust Scale Vector</p>
+
+    <div class='pre p1 fill-light mt0'>setScaleVector(vec: any, x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, z: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>vec</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
       
         <div class='space-bottom0'>
           <div>
@@ -4566,6 +5309,74 @@ Create shaderProgram and bind locations</p>
       </div>
     </div>
   
+    <div class='border-bottom' id='graphicsgetshader'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>getShader(shaderName)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Access shaders by name</p>
+
+    <div class='pre p1 fill-light mt0'>getShader(shaderName: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>shaderName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='graphics__loadtexture'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -4944,7 +5755,7 @@ Create shaderProgram and bind locations</p>
 
   
 
-  <p>Mouse listener</p>
+  <p>Mouse listenerd a</p>
 
     <div class='pre p1 fill-light mt0'>mouseEvent(event: any)</div>
   
@@ -5781,7 +6592,7 @@ Create shaderProgram and bind locations</p>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>useObject()</span>
+            <span class='code strong strong truncate'>useObject(generateMesh)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -5791,7 +6602,7 @@ Create shaderProgram and bind locations</p>
 
   <p>to hint light location , light object create a sphere object in same location</p>
 
-    <div class='pre p1 fill-light mt0'>useObject(): any</div>
+    <div class='pre p1 fill-light mt0'>useObject(generateMesh: any): any</div>
   
   
 
@@ -5802,6 +6613,20 @@ Create shaderProgram and bind locations</p>
   
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>generateMesh</span> <code class='quiet'>(any
+            = <code>true</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -5882,6 +6707,75 @@ Create shaderProgram and bind locations</p>
 
       
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='lightsetintensity'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>setIntensity(val, dist)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>set intenstiy 0 - 1</p>
+
+    <div class='pre p1 fill-light mt0'>setIntensity(val: any, dist: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>val</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dist</span> <code class='quiet'>(any
+            = <code>-1</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
   
 
   
@@ -6207,6 +7101,53 @@ Create shaderProgram and bind locations</p>
   <p>Material.Blue</p>
 
     <div class='pre p1 fill-light mt0'>Blue()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='materialwhite'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>White()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Material.White</p>
+
+    <div class='pre p1 fill-light mt0'>White()</div>
   
   
 
@@ -6926,7 +7867,7 @@ Create shaderProgram and bind locations</p>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>fromURL(url, name)</span>
+            <span class='code strong strong truncate'>fromURL(url, loadFunc, name)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -6936,7 +7877,7 @@ Create shaderProgram and bind locations</p>
 
   <p>Generate texture from url</p>
 
-    <div class='pre p1 fill-light mt0'>fromURL(url: any, name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+    <div class='pre p1 fill-light mt0'>fromURL(url: any, loadFunc: any, name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
   
   
 
@@ -6954,6 +7895,15 @@ Create shaderProgram and bind locations</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>url</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>loadFunc</span> <code class='quiet'>(any
+            = <code>null</code>)</code>
 	    
           </div>
           
@@ -7022,7 +7972,8 @@ Create shaderProgram and bind locations</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>num</span> <code class='quiet'>(any)</code>
+            <span class='code bold'>num</span> <code class='quiet'>(any
+            = <code>0</code>)</code>
 	    
           </div>
           
@@ -7051,11 +8002,11 @@ Create shaderProgram and bind locations</p>
       </div>
     </div>
   
-    <div class='border-bottom' id='texturebind'>
+    <div class='border-bottom' id='texture'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>bind()</span>
+            <span class='code strong strong truncate'></span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -7065,7 +8016,7 @@ Create shaderProgram and bind locations</p>
 
   <p>Bind texture ( default texture unit:0)</p>
 
-    <div class='pre p1 fill-light mt0'>bind()</div>
+    <div class='pre p1 fill-light mt0'></div>
   
   
 

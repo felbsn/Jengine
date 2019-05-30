@@ -1,6 +1,5 @@
 // *.html|*.js|*.css
 
-deltatime = 0;
 
 function main()
 {
@@ -10,12 +9,9 @@ function main()
     var engine = new Engine(document.getElementById("container"));
 
 
-
-
-
-
     engine.setup(
-       // testSuite0
+    
+   //testSuite0
      horroScape
       
     );
@@ -23,15 +19,14 @@ function main()
     engine.start(function()
     {
 
-       // basciLoop()
         gunnerLoop()
-
-
 
     }
     );
 
 }
+
+
 
 
 // ( eng , gfx , time , camera , input )
@@ -45,68 +40,62 @@ function testSuite0()
         ])
 
 
-
         let planeObj = new GameObject("Plane" ,null, "Plane").setScale(500 , 0.1 , 500).translate(0 , -2 , 0);
         planeObj.material = Material.White()
         planeObj.addBoxBody(0, [1,0.1,1]);
 
 
-        new Texture().fromURL("res/Tex/shipTex.jpg" , function(texture){
+        function rotate()
+        {
+            let tim = Time.time;
+            let rad = 5
+            this.setPosition( Math.sin(tim)*rad , 0.3 , Math.cos(tim)*rad -10 )
+        }
 
-            let jet = new GameObject("Jet", null, "Cube");
-            jet.translate(0, 15, -5)
-    
-            jet.material.texture = texture;
-    
-            new Texture().fromURL("res/Tex/shipEmissive.jpg" , function(texture){
-                jet.useEmissive(texture)
-
-                new Texture().fromURL("res/Tex/shipNorm.jpg" , function(texture){
-                    jet.useNormal(texture)
-
-                    for(let i = 0 ; i < 496; i ++)
-                    {
-
-                    
-                        let x = (Math.random()-0.5)*60
-                        let y = (Math.random()-0.5)*60
-                        let z = (Math.random()-0.5)*60
-
-                        let obj = new GameObject("j" ,null, "Jet").translate(x , y ,z)
-
-                        //.addBoxBody(1);
-                        obj.useMaterial(jet.material)
-                       
-                    }
+        function rotateRed()
+        {
+            let tim = -Time.time;
+            let rad = 5
+            this.setPosition( Math.sin(tim)*rad , 0.3 , Math.cos(tim)*rad -10 )
+        }
+        
 
 
-
-                })
-
-            })
-    
-
-    
-        })
-
-
-    
-       let l  =new Light(Light.Types.DirectionalLight).setColorHex("#F0F0F0")
+       let l  =new Light(Light.Types.PointLight).setColorHex("#00ff00")
        l.setDirection(0 , -1 , -0.2);
+       l.useObject()
+       l.gameObject.translate(3, 0, -10)
+       l.setIntensity(0.7, 50)
+
+       //l.gameObject.onUpdate = rotate;
+
+        
+       let l2  =new Light(Light.Types.PointLight).setColorHex("#ff0000")
+       l2.setDirection(0 , -1 , -0.2);
+       l2.useObject()
+       l2.gameObject.translate(-3, 0, -10)
+       l2.setIntensity(1, 70)
+       l2.gameObject.onUpdate = rotateRed
+       
+
+
+
+    let obj = new GameObject("test" , null  ,"Monkey")
+    obj.translate(0 , 0 , -10)
+    obj.useMaterial(Material.Blue())
+
+       
 
 
 
        let objx = new GameObject("cameraHolder");
-
        objx.onUpdate = function(input , time)
        {
            let delta = time.deltaTime
            let mov = delta * 10
 
-          
           Camera.rotateRollPitchYaw( 0, input.mouse.relY  ,input.mouse.relX  )
           Camera.translate( input.xAxis()*mov ,input.yAxis() *mov,input.zAxis() *mov)
-   
        }
 }
 
@@ -136,12 +125,18 @@ function horroScape()
 
             console.log("started , ", this.deg)
         }
-        jet.onUpdate = function (input, time) {
-            this.deg += time.deltaTime * this.speed;
-            this.rotate(0, this.speed * time.deltaTime, 0)
-            this.position[1] =  Math.sin(time.time*0.1) * 5 +7;
-            this.position[0] =  Math.sin(time.time) * 7 ;
-            this.position[2] =  Math.sin(time.time) * 15;
+        jet.onUpdate = function (       ) {
+            //this.deg += time.deltaTime * this.speed;
+            //this.rotate(0, this.speed * time.deltaTime, 0)
+            //this.position[1] =  Math.sin(time.time*0.1) * 5 +7;
+            //this.position[0] =  Math.sin(time.time) * 7 ;
+            //this.position[2] =  Math.sin(time.time) * 15;
+
+            let time =Time.time *0.6;
+            let rad = 15
+            this.setPosition( Math.sin(time)*rad, 6 , Math.cos(time)*rad)
+
+            this.rotate(0,  time* Math.PI/65 ,0)
         }
 
         new Texture().fromURL("res/Tex/shipEmissive.jpg" , function(texture){
@@ -167,7 +162,7 @@ function horroScape()
     planeObj.addBoxBody(0, [1,0.1,1]);
 
 
-    new Texture().fromURL("res/Tex/vodaa.png" , function(texture){
+    new Texture().fromURL("res/Tex/uniq.jpg" , function(texture){
 
         for (let i = -40 ; i < 40; i+=10) {
             {
@@ -441,11 +436,6 @@ function horroScape()
 
 }
 
-function basciLoop()
-{
-
-}
-
 function gunnerLoop()
 {
     if(this.gunHolder)
@@ -460,6 +450,8 @@ function gunnerLoop()
         this.gunHolder = new GameObject("gunHolder")
 
         this.gunobj =  new GameObject("gun" ,null , "Cylinder")
+
+        this.gunobj.setScale(0.4 ,0.4 ,0.4)
         this.gunobj.setParent( this.gunHolder )
 
         this.gunobj.translate(0.7,0,0);

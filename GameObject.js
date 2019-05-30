@@ -816,7 +816,7 @@ function deepCopy(oldObj , parent = null , key = null) {
             newObj = oldObj;
         }else{
             newObj = Object.prototype.toString.call(oldObj) === "[object Array]" ? [] : {};
-            for (var key in oldObj) {
+            for (let key in oldObj) {
                 newObj[key] = deepCopy(oldObj[key] , newObj , key);
             }
         }
