@@ -7,7 +7,7 @@ function main()
 
     engine.setup
     (
-        //testSuite0
+        //objectAndLightTest
         horroScape
     )
 
@@ -24,7 +24,7 @@ function main()
 
 
 // ( eng , gfx , time , camera , input )
-function testSuite0()
+function objectAndLightTest()
 {
     
     let planeObj = new GameObject("Plane" ,null, "Plane").setScale(500 , 0.1 , 500).translate(0 , -2 , 0);
@@ -52,14 +52,14 @@ function testSuite0()
     l.gameObject.translate(3, 0, -10)
     l.setIntensity(0.7, 50)
 
-    //l.gameObject.onUpdate = rotate;
+    l.gameObject.onUpdate = rotate;
     
-    //let l2  =new Light(Light.Types.PointLight).setColorHex("#ff0000")
-    //l2.setDirection(0 , -1 , -0.2);
-    //l2.useObject()
-    //l2.gameObject.translate(-3, 0, -10)
-    //l2.setIntensity(1, 70)
-    //l2.gameObject.onUpdate = rotateRed
+    let l2  =new Light(Light.Types.PointLight).setColorHex("#ff0000")
+    l2.setDirection(0 , -1 , -0.2);
+    l2.useObject()
+    l2.gameObject.translate(-3, 0, -10)
+    l2.setIntensity(1, 70)
+    l2.gameObject.onUpdate = rotateRed
     
     let obj = new GameObject("test" , null  ,"Monkey")
     obj.translate(0 , 0 , -10)
@@ -81,8 +81,8 @@ function testSuite0()
 function horroScape()
 {
     SoundManager.registerSounds([
-        ["s0" ,'res/sounds/blunt_hit_high_1.ogg'],
-        ["s1" ,'res/sounds/clang_metal_2.ogg'],
+        ["s0" ,'res/sounds/monkey_cry.ogg'],
+        ["s1" ,'res/sounds/hit_explode.ogg'],
 
     ])
 
