@@ -3,27 +3,21 @@
 
 function main()
 {
-
- 
-
     var engine = new Engine(document.getElementById("container"));
 
+    engine.setup
+    (
+        //testSuite0
+        horroScape
+    )
 
-    engine.setup(
-    
-   //testSuite0
-     horroScape
-      
-    );
-
-    engine.start(function()
-    {
-
-        gunnerLoop()
-
-    }
-    );
-
+    engine.start
+    (
+        function()
+        {
+            gunnerLoop()
+        }
+    )
 }
 
 
@@ -32,71 +26,55 @@ function main()
 // ( eng , gfx , time , camera , input )
 function testSuite0()
 {
+    
+    let planeObj = new GameObject("Plane" ,null, "Plane").setScale(500 , 0.1 , 500).translate(0 , -2 , 0);
+    planeObj.material = Material.White()
+    planeObj.addBoxBody(0, [1,0.1,1]);
 
-        SoundManager.registerSounds([
-            ["s0" ,'res/sounds/blunt_hit_high_1.ogg'],
-            ["s1" ,'res/sounds/clang_metal_2.ogg'],
+    
+    function rotate()
+    {
+        let tim = Time.time;
+        let rad = 5
+        this.setPosition( Math.sin(tim)*rad , 0.3 , Math.cos(tim)*rad -10 )
+    }
 
-        ])
+    function rotateRed()
+    {
+        let tim = -Time.time;
+        let rad = 5
+        this.setPosition( Math.sin(tim)*rad , 0.3 , Math.cos(tim)*rad -10 )
+    }
 
+    let l  =new Light(Light.Types.PointLight).setColorHex("#00ff00")
+    l.setDirection(0 , -1 , -0.2);
+    l.useObject()
+    l.gameObject.translate(3, 0, -10)
+    l.setIntensity(0.7, 50)
 
-        let planeObj = new GameObject("Plane" ,null, "Plane").setScale(500 , 0.1 , 500).translate(0 , -2 , 0);
-        planeObj.material = Material.White()
-        planeObj.addBoxBody(0, [1,0.1,1]);
-
-
-        function rotate()
-        {
-            let tim = Time.time;
-            let rad = 5
-            this.setPosition( Math.sin(tim)*rad , 0.3 , Math.cos(tim)*rad -10 )
-        }
-
-        function rotateRed()
-        {
-            let tim = -Time.time;
-            let rad = 5
-            this.setPosition( Math.sin(tim)*rad , 0.3 , Math.cos(tim)*rad -10 )
-        }
-        
-
-
-       let l  =new Light(Light.Types.PointLight).setColorHex("#00ff00")
-       l.setDirection(0 , -1 , -0.2);
-       l.useObject()
-       l.gameObject.translate(3, 0, -10)
-       l.setIntensity(0.7, 50)
-
-       //l.gameObject.onUpdate = rotate;
-
-        
-       let l2  =new Light(Light.Types.PointLight).setColorHex("#ff0000")
-       l2.setDirection(0 , -1 , -0.2);
-       l2.useObject()
-       l2.gameObject.translate(-3, 0, -10)
-       l2.setIntensity(1, 70)
-       l2.gameObject.onUpdate = rotateRed
-       
-
-
-
+    //l.gameObject.onUpdate = rotate;
+    
+    //let l2  =new Light(Light.Types.PointLight).setColorHex("#ff0000")
+    //l2.setDirection(0 , -1 , -0.2);
+    //l2.useObject()
+    //l2.gameObject.translate(-3, 0, -10)
+    //l2.setIntensity(1, 70)
+    //l2.gameObject.onUpdate = rotateRed
+    
     let obj = new GameObject("test" , null  ,"Monkey")
     obj.translate(0 , 0 , -10)
     obj.useMaterial(Material.Blue())
 
-       
+    let objx = new GameObject("cameraHolder");
+    objx.onUpdate = function(input , time)
+    {
+        let delta = time.deltaTime
+        let mov = delta * 10
 
-
-
-       let objx = new GameObject("cameraHolder");
-       objx.onUpdate = function(input , time)
-       {
-           let delta = time.deltaTime
-           let mov = delta * 10
-
-          Camera.rotateRollPitchYaw( 0, input.mouse.relY  ,input.mouse.relX  )
-          Camera.translate( input.xAxis()*mov ,input.yAxis() *mov,input.zAxis() *mov)
-       }
+        Camera.rotateRollPitchYaw( 0, input.mouse.relY  ,input.mouse.relX  )
+        Camera.translate( input.xAxis()*mov ,input.yAxis() *mov,input.zAxis() *mov)
+    }
+    
 }
 
 
@@ -451,7 +429,7 @@ function gunnerLoop()
 
         this.gunobj =  new GameObject("gun" ,null , "Cylinder")
 
-        this.gunobj.setScale(0.4 ,0.4 ,0.4)
+        this.gunobj.setScale(0.5 ,0.6 ,0.5)
         this.gunobj.setParent( this.gunHolder )
 
         this.gunobj.translate(0.7,0,0);
